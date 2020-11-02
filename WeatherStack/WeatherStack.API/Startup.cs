@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +16,9 @@ namespace WeatherStack.API
 {
     public class Startup
     {
+
+        private string _weatherStackApiKey = null;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -26,6 +30,8 @@ namespace WeatherStack.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            _weatherStackApiKey = Configuration["WeatherStack:ServiceApiKey"];
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +41,12 @@ namespace WeatherStack.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.Run(async (context) =>
+            {
+                var result = string.IsNullOrEmpty(_weatherStackApiKey) ? "Null" : "Not Null";
+                await context.Response.WriteAsync($"Secret is {result}");
+            });
 
             app.UseHttpsRedirection();
 
