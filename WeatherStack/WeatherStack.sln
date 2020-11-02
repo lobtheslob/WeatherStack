@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherStack.API", "Weather
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherStack.Client", "WeatherStack.Client\WeatherStack.Client.csproj", "{A8C8FC5C-EF8F-46EA-B7CC-B06F5656665B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{3A228B4D-0D7F-44E1-AA2F-3B01A34E0437}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{73BF6846-BC41-4DC4-867F-F55BC533CEC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +28,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F8E53230-7000-4A31-A555-3073236DCC69} = {73BF6846-BC41-4DC4-867F-F55BC533CEC5}
+		{A8C8FC5C-EF8F-46EA-B7CC-B06F5656665B} = {3A228B4D-0D7F-44E1-AA2F-3B01A34E0437}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5A61C5FB-F22E-4A66-9093-1CEEE7FA842F}

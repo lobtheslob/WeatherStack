@@ -1,43 +1,38 @@
-﻿using Marvin.StreamExtensions;
+﻿//using Marvin.StreamExtensions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using WeatherStack.API.Models;
 
+namespace WeatherStack.API
 
-namespace WeatherStack.API.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    class HttpClientFactoryInstanceManagementService : IIntegrationService
     {
-
         private readonly CancellationTokenSource _cancellationTokenSource =
-            new CancellationTokenSource();
+        new CancellationTokenSource();
 
         private readonly IHttpClientFactory _httpClientFactory;
 
-        private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        //inject factory via contructor
+        public HttpClientFactoryInstanceManagementService(IHttpClientFactory httpClientFactory)
+        // WeatherClient weatherClient)
         {
-            _logger = logger;
+            _httpClientFactory = httpClientFactory;
         }
 
-        [HttpGet]
-        public async Task<Tempature>GetAsync()
+        public async Task Run()
         {
-            var token = _cancellationTokenSource.Token;
+            await GetWeatherWithHttpClientFromFactory("London", "uk", _cancellationTokenSource.Token);
+        }
 
-
+        private async Task GetWeatherWithHttpClientFromFactory(string city, string countryCode,
+            CancellationToken cancellationToken)
+        {
             var httpClient = _httpClientFactory.CreateClient();
             httpClient.BaseAddress = new Uri("http://api.weatherstack.com/");
             httpClient.Timeout = new TimeSpan(0, 0, 30);
@@ -53,11 +48,11 @@ namespace WeatherStack.API.Controllers
 
             using (var response = await httpClient.SendAsync(request,
                 HttpCompletionOption.ResponseHeadersRead,
-                token))
+                cancellationToken))
             {
                 var stream = await response.Content.ReadAsStreamAsync();
                 response.EnsureSuccessStatusCode();
-                var temp = stream.ReadAndDeserializeFromJson<Tempature>();
+                //var weather = stream.ReadAndDeserializeFromJson<_200>();
             }
 
         }

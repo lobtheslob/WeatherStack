@@ -5,11 +5,10 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace WeatherStack.API
+namespace WeatherStack.Service
 {
     class Program
     {
- 
         static async Task Main(string[] args)
         {
             // create a new ServiceCollection 
@@ -47,12 +46,16 @@ namespace WeatherStack.API
 
             //add client for factory 
             serviceCollection.AddHttpClient();
-        
-            //serviceCollection.AddScoped<IIntegrationService, CRUDService>();
+//             serviceCollection.AddScoped<IIntegrationService, CRUDService>();
             
             // call dependancy injected service
-            serviceCollection.AddScoped<IIntegrationService, HttpClientFactoryInstanceManagementService>();
+             serviceCollection.AddScoped<IIntegrationService, HttpClientFactoryInstanceManagementService>();
+
+            // For the dealing with errors and faults demos
+            // serviceCollection.AddScoped<IIntegrationService, DealingWithErrorsAndFaultsService>();
 
         }
+    }
+
     }
 }
