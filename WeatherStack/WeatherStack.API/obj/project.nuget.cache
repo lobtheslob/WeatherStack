@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "WDnvM4A+kVSjn/K44RBsFFF1AlUhG3IUVdz5MfNvgiu77Ag/tSrsHiOAEkQQR+TCS35Dth775ojT9RxW6WjwZg==",
+  "dgSpecHash": "Rmo5gwmQILC5mTok6S2ind0ykyp+EbouzbdjRtcEWSPt8UVsU+Amd5FtQSzbou77RuGjRIEEfU7dfIlRhBw3AQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\lobth\\projects\\WeatherStack\\WeatherStack\\WeatherStack.API\\WeatherStack.API.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\lobth\\.nuget\\packages\\marvin.streamextensions\\1.2.0\\marvin.streamextensions.1.2.0.nupkg.sha512",
+    "C:\\Users\\lobth\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512"
+  ],
   "logs": []
 }

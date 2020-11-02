@@ -4,4 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>e2d2dc9a-df27-4fb8-9b25-82e39103ecaf</UserSecretsId>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Marvin.StreamExtensions" Version="1.2.0" />
+  </ItemGroup>
 </Project>

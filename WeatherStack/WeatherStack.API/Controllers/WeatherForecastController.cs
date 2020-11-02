@@ -33,7 +33,7 @@ namespace WeatherStack.API.Controllers
         }
 
         [HttpGet]
-        public async Task<Tempature>GetAsync()
+        public async Task<Tempature>GetiTempWithZipAsync(string zip)
         {
             var token = _cancellationTokenSource.Token;
 
@@ -47,7 +47,7 @@ namespace WeatherStack.API.Controllers
 
             var request = new HttpRequestMessage(
                 HttpMethod.Get,
-                $"current?access_key=YOUR_ACCESS_KEY&query=New York");
+                $"current?access_key={API_key}&query={zip}");
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             request.Headers.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
 
@@ -58,8 +58,36 @@ namespace WeatherStack.API.Controllers
                 var stream = await response.Content.ReadAsStreamAsync();
                 response.EnsureSuccessStatusCode();
                 var temp = stream.ReadAndDeserializeFromJson<Tempature>();
+                return temp;
             }
+        }
+        public async Task<Tempature>GetiTempWithCityAsync(string city)
+        {
+            var token = _cancellationTokenSource.Token;
 
+
+            var httpClient = _httpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri("http://api.weatherstack.com/");
+            httpClient.Timeout = new TimeSpan(0, 0, 30);
+            httpClient.DefaultRequestHeaders.Clear();
+
+            var API_key = "82727441592b5987ded09df48165bc90";
+
+            var request = new HttpRequestMessage(
+                HttpMethod.Get,
+                $"current?access_key={API_key}&query={city}");
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            request.Headers.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
+
+            using (var response = await httpClient.SendAsync(request,
+                HttpCompletionOption.ResponseHeadersRead,
+                token))
+            {
+                var stream = await response.Content.ReadAsStreamAsync();
+                response.EnsureSuccessStatusCode();
+                var temp = stream.ReadAndDeserializeFromJson<Tempature>();
+                return temp;
+            }
         }
     }
 }
